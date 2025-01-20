@@ -1,0 +1,45 @@
+<main>
+    <div class="container py-5 text-datanest">
+      <h3 class="my-4 text-center">Record Blood Donation</h3>
+  
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <form (ngSubmit)="recordDonation()">
+                <div class="mb-3">
+                  <label for="donorId" class="form-label">Donor ID:</label>
+                  <input type="text" class="form-control" id="donorId" name="donorId" 
+                         [(ngModel)]="donationRecord.donorId" placeholder="Enter Donor ID" required>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="bloodGroup" class="form-label">Blood Group:</label>
+                  <select class="form-select" id="bloodGroup" name="bloodGroup" 
+                          [(ngModel)]="donationRecord.bloodGroup" required>
+                    <option [ngValue]="''">Select blood group</option>
+                    <option *ngFor="let group of bloodGroups" [value]="group">{{group}}</option>
+                  </select>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="donationDate" class="form-label">Donation Date:</label>
+                  <input type="date" class="form-control" id="donationDate" name="donationDate"
+                         [(ngModel)]="donationRecord.donationDate" required>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="medicalNotes" class="form-label">Medical Notes:</label>
+                  <textarea class="form-control" id="medicalNotes" name="medicalNotes"
+                            [(ngModel)]="donationRecord.medicalNotes" rows="3"
+                            placeholder="Enter any medical notes"></textarea>
+                </div>
+  
+                <button type="submit" class="btn btn-primary">Record Donation</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
