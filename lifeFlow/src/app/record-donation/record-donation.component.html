@@ -1,41 +1,77 @@
 <main>
-    <div class="container py-5 text-datanest">
+    <div class="container py-5">
       <h3 class="my-4 text-center">Record Blood Donation</h3>
   
       <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body">
-              <form (ngSubmit)="recordDonation()">
+              <form #donationForm="ngForm" (ngSubmit)="recordDonation()">
                 <div class="mb-3">
                   <label for="donorId" class="form-label">Donor ID:</label>
-                  <input type="text" class="form-control" id="donorId" name="donorId" 
-                         [(ngModel)]="donationRecord.donorId" placeholder="Enter Donor ID" required>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="donorId" 
+                    name="donorId" 
+                    [(ngModel)]="donationRecord.donorId" 
+                    #donorId="ngModel"
+                    placeholder="Enter Donor ID" 
+                    required>
+                  <div *ngIf="donorId.invalid && (donorId.dirty || donorId.touched)" class="text-danger">
+                    <small *ngIf="donorId.errors?.['required']">Donor ID is required</small>
+                  </div>
                 </div>
   
                 <div class="mb-3">
                   <label for="bloodGroup" class="form-label">Blood Group:</label>
-                  <select class="form-select" id="bloodGroup" name="bloodGroup" 
-                          [(ngModel)]="donationRecord.bloodGroup" required>
-                    <option [ngValue]="''">Select blood group</option>
+                  <select 
+                    class="form-select" 
+                    id="bloodGroup" 
+                    name="bloodGroup" 
+                    [(ngModel)]="donationRecord.bloodGroup"
+                    #bloodGroup="ngModel"
+                    required>
+                    <option value="">Select blood group</option>
                     <option *ngFor="let group of bloodGroups" [value]="group">{{group}}</option>
                   </select>
+                  <div *ngIf="bloodGroup.invalid && (bloodGroup.dirty || bloodGroup.touched)" class="text-danger">
+                    <small *ngIf="bloodGroup.errors?.['required']">Blood group is required</small>
+                  </div>
                 </div>
   
                 <div class="mb-3">
                   <label for="donationDate" class="form-label">Donation Date:</label>
-                  <input type="date" class="form-control" id="donationDate" name="donationDate"
-                         [(ngModel)]="donationRecord.donationDate" required>
+                  <input 
+                    type="date" 
+                    class="form-control" 
+                    id="donationDate" 
+                    name="donationDate"
+                    [(ngModel)]="donationRecord.donationDate"
+                    #donationDate="ngModel"
+                    required>
+                  <div *ngIf="donationDate.invalid && (donationDate.dirty || donationDate.touched)" class="text-danger">
+                    <small *ngIf="donationDate.errors?.['required']">Donation date is required</small>
+                  </div>
                 </div>
   
                 <div class="mb-3">
                   <label for="medicalNotes" class="form-label">Medical Notes:</label>
-                  <textarea class="form-control" id="medicalNotes" name="medicalNotes"
-                            [(ngModel)]="donationRecord.medicalNotes" rows="3"
-                            placeholder="Enter any medical notes"></textarea>
+                  <textarea 
+                    class="form-control" 
+                    id="medicalNotes" 
+                    name="medicalNotes"
+                    [(ngModel)]="donationRecord.medicalNotes" 
+                    rows="3"
+                    placeholder="Enter any medical notes"></textarea>
                 </div>
   
-                <button type="submit" class="btn btn-primary">Record Donation</button>
+                <button 
+                  type="submit" 
+                  class="btn btn-primary w-100"
+                  [disabled]="donationForm.invalid">
+                  Record Donation
+                </button>
               </form>
             </div>
           </div>
